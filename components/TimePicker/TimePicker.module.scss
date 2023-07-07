@@ -1,0 +1,12 @@
+@use '/styles/colors.scss';
+
+.wrapper{
+  background-color: colors.$dark-navy;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.35em;
+  span{
+    color: #fff;
+  }
+}

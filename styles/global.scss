@@ -1,0 +1,16 @@
+@use './normalize.scss';
+@use './reset.scss';
+@use './colors.scss';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Marmelad', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: colors.$light-blue;
+  scroll-behavior: smooth;
+  color: #FFFFFF;
+  //min-height: 100vh;
+}

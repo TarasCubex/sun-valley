@@ -1,0 +1,22 @@
+
+.wrapper{
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  & > :first-child{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(184, 20, 184);
+    transform: translateX(50%);
+  }
+  & > :last-child{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(20, 184, 94);
+  }
+}

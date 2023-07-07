@@ -1,0 +1,40 @@
+
+
+.wrapper{
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.input-container{
+  position: relative;
+  input{
+    color: black;
+    padding: 0.3em;
+  }
+  img{
+    position: absolute;
+    right: 4px;
+  }
+}
+
+.note-container{
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  padding: 0 0.5em;
+  background-color: black;
+}
+
+.note{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+  margin: 5px 0;
+  p{
+    width: 100%;
+  }
+}

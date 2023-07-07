@@ -1,0 +1,54 @@
+
+
+.wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: black;
+  font-size: 1.5em;
+  margin: 2em 0;
+}
+
+.wrapper{
+  position: relative;
+  width: 100px;
+  height: 90px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+
+.container{
+  position: sticky;
+  flex: 0 0 30px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 1px solid green;
+  border-bottom: 1px solid green;
+  width: 100%;
+  height: 30px;
+}
+
+.hour{
+  flex: 0 0 30px;
+  scroll-snap-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  transition: 0.35s;
+}
+
+.selected{
+  color: red;
+}
+
+.not-selected{
+  color: rgb(95, 95, 95);
+}
