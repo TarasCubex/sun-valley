@@ -1,8 +1,7 @@
-import React, { LegacyRef, MutableRefObject } from "react";
+import React from "react";
 import styles from "./Wheel.module.scss";
 import ValueElement from "./ValueElement/ValueElement";
 import { useScrollStopListener } from "@/utilities/useScrollStopListener";
-import {useGeneratedId} from '@/utilities/useGeneratedId'
 
 type WheelProps = {
   value: string;
