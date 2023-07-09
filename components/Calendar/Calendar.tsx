@@ -16,10 +16,9 @@ type CalendarProps = {
   next: () => void,
   prev: () => void,
   month: number;
-  selectDay: React.Dispatch<React.SetStateAction<Date | null>>
 }
 
-const Calendar: React.FC<CalendarProps> = ({data, next, prev, month, selectDay}) => {
+const Calendar: React.FC<CalendarProps> = ({data, next, prev, month}) => {
 
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toDateString()
@@ -45,7 +44,6 @@ const Calendar: React.FC<CalendarProps> = ({data, next, prev, month, selectDay})
             value={el}
             today={el.date.toDateString() === today}
             currentMonth={el.date.getMonth() !== month}
-            selectDay={selectDay}
           />
           )}
       </div>

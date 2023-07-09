@@ -2,9 +2,7 @@
 import React from 'react'
 import styles from '../../styles/DayPage.module.scss'
 import type {INote} from '../../types'
-import NoteList from '../../components/NoteList/NoteList'
 import Header from '../../components/Header/Header'
-import NoteForm from '../../components/NoteForm/NoteForm'
 import NoteContainer from '@/components/NoteContainer/NoteContainer'
 
 async function getDayData( day: string, month: string, year: string){

@@ -9,8 +9,12 @@ body {
   font-family: 'Marmelad', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  background-color: colors.$light-blue;
+  background: linear-gradient(0deg, rgba(91,43,119,1) 0%, rgba(89,92,168,1) 25%, rgba(191,207,253,1) 100%);
   scroll-behavior: smooth;
   color: #FFFFFF;
-  //min-height: 100vh;
+  min-height: 100vh;
+}
+
+main{
+  height: 100vh;
 }

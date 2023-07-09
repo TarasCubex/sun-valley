@@ -1,7 +1,8 @@
 
 
 .wrapper{
-  background-color: black;
+  //background-color: #5b2b77ce;
+  background: linear-gradient(122deg, rgba(91,43,119,1) 0%, rgba(127,131,223,1) 23%, rgba(191,207,253,1) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,27 +14,36 @@
   input{
     color: black;
     padding: 0.3em;
+    border: 2px solid #7c4a99;
+    border-radius: 4px;
   }
   img{
     position: absolute;
     right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
 .note-container{
+  box-sizing: border-box;
   position: absolute;
   top: 55px;
   left: 0;
   width: 100%;
   padding: 0 0.5em;
-  background-color: black;
+  background-color: #7c4a99;
 }
 
 .note{
   display: flex;
   flex-flow: row wrap;
   gap: 5px;
-  margin: 5px 0;
+  margin: 10px 0;
+  padding: 10px;
+  background: linear-gradient(122deg, rgba(91,43,119,1) 0%, rgba(202,155,244,1) 100%);
+  //box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgb(60, 44, 68) 3px 3px 6px 0px inset, rgb(60, 44, 68, 0.5)  -3px -3px 6px 1px inset;
   p{
     width: 100%;
   }

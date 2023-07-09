@@ -35,7 +35,6 @@ const NoteList: React.FC<NoteListProps> = ({notes, date, updateData, editNote}) 
 
   return (
     <div className={styles.wrapper}>
-      <h3>{`${date.day}.${date.month}.${date.year}`}</h3>
       {notes.map(note =>
       <div key={note.content} className={styles.note}>
         <div className={styles.container}>

@@ -2,13 +2,12 @@ import React from 'react'
 import styles from './ValueElement.module.scss'
 import { useInView } from "react-intersection-observer";
 import classnames from 'classnames'
+import {setRef} from '@/utilities/setRef'
 
 type ValueElementProps = {
   value: string;
   handler: (hour: string) => void
 }
-
-type Ref = Element | null
 
 const ValueElement = React.forwardRef<HTMLDivElement, ValueElementProps>(({value, handler}, ref) => {
 
@@ -17,9 +16,9 @@ const ValueElement = React.forwardRef<HTMLDivElement, ValueElementProps>(({value
   }
 
   const { ref: inViewRef, inView } = useInView({
-    threshold: 0.9,
-    root: ref as Ref,
-    rootMargin: '-50px 0px -50px 0px',
+    threshold: 0.7,
+    root: setRef(ref),
+    rootMargin: '-55px 0px -55px 0px',
     onChange: handleChange
   });
 
@@ -29,11 +28,11 @@ const ValueElement = React.forwardRef<HTMLDivElement, ValueElementProps>(({value
   })
 
   return(
-    <div className={clName} ref={inViewRef}>
-      <p>
-      {value.replace(/\D/,'')}
-      </p>
-    </div>
+      <div className={clName} ref={inViewRef}>
+        <p>
+        {value.replace(/\D/,'')}
+        </p>
+      </div>
   )
 })
 

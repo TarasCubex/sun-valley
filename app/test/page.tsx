@@ -8,9 +8,13 @@ import TimePicker from '../../components/TimePicker/TimePicker'
 
 const Test = () => {
 
+  const [time, setTime] = React.useState('12:00')
+
+  console.log(time)
+
   return (
     <div className={styles.wrap}>
-      {/* <TimePicker/> */}
+      <TimePicker timeValue={time} changeTime={setTime}/>
     </div>
   )
 }

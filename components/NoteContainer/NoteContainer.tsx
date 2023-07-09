@@ -2,6 +2,7 @@
 
 import React from 'react'
 import NoteList from '../NoteList/NoteList'
+import styles from './NoteContainer.module.scss'
 import type {INote} from '../../types'
 import dynamic from "next/dynamic";
 
@@ -56,20 +57,24 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
 
   return (
     <div>
-      <button
-        type='button'
-        onClick={() => setFormInitData({
-          _id: '',
-          year: year,
-          day: day,
-          month: month,
-          time: '',
-          master: '',
-          content: ''
-        })}
-      >
-        Open
-      </button>
+      <div className={styles['btn-container']}>
+        <button
+          type='button'
+          className={styles.btn}
+          onClick={() => setFormInitData({
+            _id: '',
+            year: year,
+            day: day,
+            month: month,
+            time: '09:00',
+            master: '',
+            content: ''
+          })}
+          >
+          Новая запись
+        </button>
+        <h3>{`${day}.${month}.${year}`}</h3>
+      </div>
       {!!formInitData && <DynamicNoteForm
         basicData={formInitData}
         actionCb={formInitData._id === '' ? addNote : updateNote}

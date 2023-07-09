@@ -10,10 +10,9 @@ type DayProps = {
   value: IDayData;
   today: boolean;
   currentMonth: boolean;
-  selectDay: React.Dispatch<React.SetStateAction<Date | null>>
 }
 
-const Day: React.FC<DayProps> = ({value, today, currentMonth, selectDay}) => {
+const Day: React.FC<DayProps> = ({value, today, currentMonth}) => {
 
   const dayClassName = classNames(styles.cell,{
     [styles.today]: today,
@@ -23,7 +22,7 @@ const Day: React.FC<DayProps> = ({value, today, currentMonth, selectDay}) => {
   const link = value.date.toLocaleDateString()
 
   return (
-    <div className={dayClassName} onClick={() => selectDay(value.date)}>
+    <div className={dayClassName}>
       <Link href={`/${link}`}>
         <div className={styles.content}>
           {!!value.notes.length && <Badge notes={value.notes}/>}

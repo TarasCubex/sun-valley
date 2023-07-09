@@ -5,6 +5,8 @@ import styles from './Header.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 import type {INote} from '../../types'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = ({children}: {children: React.ReactNode}) => {
 
@@ -12,7 +14,7 @@ const Header = ({children}: {children: React.ReactNode}) => {
 
   const [notes, setNotes] = React.useState<INote[]>([])
 
-  const find = async () => {
+  const find = React.useCallback(async () => {
     const res = await fetch('/api/findNotes',{
       method: 'POST',
       headers: {
@@ -22,16 +24,40 @@ const Header = ({children}: {children: React.ReactNode}) => {
     })
     const response: {notes: INote[]} = await res.json()
     return response.notes
-  }
+  },[value])
 
   React.useEffect(() => {
+    const findData = () => {
+      return toast.promise(find().then(data => setNotes(data)),
+      {
+        pending: 'Подождите',
+        success: 'Готово!',
+        error: 'Ошибка (',
+      })
+    }
+    let timeout: ReturnType<typeof setTimeout> | null = null;
     if(!!value){
-      find().then(data => setNotes(data))
+      timeout = setTimeout(findData, 1000);
     } else setNotes([])
-  },[value])
+    return () => {
+      if(timeout)clearTimeout(timeout)
+    };
+  },[value, find])
 
   return (
     <main>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={700}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
       <header className={styles.wrapper}>
         <Link href='/'>
           <Image src='/menu.png' alt='menu' width={40} height={40} />

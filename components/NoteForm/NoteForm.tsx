@@ -5,6 +5,8 @@ import ReactDOM from "react-dom";
 import styles from './NoteForm.module.scss'
 import createPortalDiv from '@/utilities/createPortalDiv'
 import TimePicker from '../TimePicker/TimePicker';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import type {INote} from '../../types'
 
@@ -34,21 +36,43 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
       master: master,
       content: content
     }
-    await actionCb(data)
+    toast.promise( actionCb(data),{
+      pending: 'Подождите',
+      success: 'Готово!',
+      error: 'Ошибка (',
+      }
+      )
+    toast.onChange((payload) => {
+      if(payload.status === 'removed') handleClose(false)
+    })
+  }
+
+  const close = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     handleClose(false)
   }
 
-  const close = () => {
-    handleClose(false)
-  }
 
   return ReactDOM.createPortal(
-    <div className={styles['form-wrapper']} onClick={() => close()}>
+    <div className={styles['form-wrapper']} onClick={(e) => close(e)}>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={700}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
       <form className={styles.form} onSubmit={e => handleSubmit(e)} onClick={e => e.stopPropagation()}>
         <h3>{ !!basicData._id ?  'Редактировать запись' : 'Новая запись' }</h3>
         <div className={styles.container}>
           <div className={styles.master}>
-            <p>Мастер: </p>
+            <h3>Мастер: </h3>
             <div className={styles['radio-container']}>
               <input
                 type='radio'
@@ -74,15 +98,8 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
               <label htmlFor='master-2'>Лена</label>
             </div>
           </div>
-          <TimePicker changeTime={setTime} />
+          <TimePicker timeValue={time} changeTime={setTime} />
         </div>
-        {/* <input
-          type='text'
-          className={styles.input}
-          placeholder='Время'
-          value={time}
-          onChange={e => setTime(e.target.value)}
-          /> */}
         <textarea
           className={styles.area}
           placeholder='Текст'

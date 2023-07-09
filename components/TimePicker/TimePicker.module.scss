@@ -1,12 +1,36 @@
 @use '/styles/colors.scss';
 
 .wrapper{
-  background-color: colors.$dark-navy;
+  position: relative;
+  background: linear-gradient(0deg, rgba(190,126,245,1) 0%, rgba(114,24,167,1) 50%, rgba(190,126,245,1) 100%);
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 0.35em;
+  border-radius: 3px;
   span{
     color: #fff;
+  }
+  &::before{
+    position: absolute;
+    content: '';
+    display: block;
+    top: 3px;
+    left: 0;
+    height: 52px;
+    width: 100%;
+    backdrop-filter: blur(1px);
+    z-index: 10;
+  }
+  &::after{
+    position: absolute;
+    content: '';
+    display: block;
+    bottom: 3px;
+    left: 0;
+    height: 52px;
+    width: 100%;
+    backdrop-filter: blur(1px);
+    z-index: 10;
   }
 }

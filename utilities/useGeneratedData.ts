@@ -1,6 +1,7 @@
 import React from "react";
 import fillData from "./fillData";
 import type {INote, IDayData} from '../types'
+import { toast } from 'react-toastify';
 
 const useGeneratedData = () => {
   const defaultDate = new Date()
@@ -43,19 +44,18 @@ const useGeneratedData = () => {
   },[month])
 
   React.useEffect(() => {
-    FetchData().then((res: {notes: INote[]}) => {
+    toast.promise(FetchData().then((res: {notes: INote[]}) => {
       const generatedData = fillData(firstDay.current).map(el => {return {
         date: el,
         notes: res.notes.filter(note => note.day === el.getDate().toString() && (+note.month -1) === el.getMonth())
       }})
       setData(generatedData)
+    }),{
+      pending: 'Подождите',
+      success: 'Готово!',
+      error: 'Ошибка (',
     })
   },[month, FetchData])
-
-
-  const addNote = async() => {
-    const note =  await (await fetch('/api/addNote')).json().then(note => console.log(note))
-  }
 
   return {month,data, nextMonth, prevMonth}
 }
