@@ -69,7 +69,7 @@ const Header = ({children}: {children: React.ReactNode}) => {
             value={value}
             onChange={e => setValue(e.target.value)}
             />
-          {!!notes.length && <Image src='/close.png' alt='' width={28} height={28} onClick={() => setValue('')} />}
+          {!!value &&  <Image src='/close.png' alt='' width={28} height={28} onClick={() => setValue('')} />}
         </div>
       </header>
       <div className={styles['note-container']}>

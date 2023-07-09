@@ -33,6 +33,7 @@
   width: 100%;
   padding: 0 0.5em;
   background-color: #7c4a99;
+  z-index: 50;
 }
 
 .note{
@@ -47,4 +48,8 @@
   p{
     width: 100%;
   }
+}
+
+.notfound{
+  margin: 0.5em;
 }
