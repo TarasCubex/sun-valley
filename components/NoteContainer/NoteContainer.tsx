@@ -5,6 +5,7 @@ import NoteList from '../NoteList/NoteList'
 import styles from './NoteContainer.module.scss'
 import type {INote} from '../../types'
 import dynamic from "next/dynamic";
+import {prettifyDateString} from '@/utilities/prettifyDateString'
 
 const DynamicNoteForm = dynamic(() => import('../NoteForm/NoteForm'), {
   ssr: false,
@@ -22,6 +23,10 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
   const [formInitData, setFormInitData] = React.useState<INote | null>(null)
 
   const [noteList, setNoteList] = React.useState(notes)
+
+  React.useEffect(() => {
+    setNoteList(notes)
+  },[notes])
 
   const addNote = async (data: INote) => {
     const newNoteData = {
@@ -66,14 +71,14 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
             year: year,
             day: day,
             month: month,
-            time: '09:00',
+            time: '08:00',
             master: '',
             content: ''
           })}
           >
           Новая запись
         </button>
-        <h3>{`${day}.${month}.${year}`}</h3>
+        <h3>{prettifyDateString(day, month, year)}</h3>
       </div>
       {!!formInitData && <DynamicNoteForm
         basicData={formInitData}

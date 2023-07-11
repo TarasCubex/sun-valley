@@ -16,8 +16,15 @@
   flex-flow: row wrap;
   align-items: flex-start;
   padding: 5px;
-  //box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.master-1{
+  background: linear-gradient(146deg, rgba(191,207,253,1) 60%, rgba(232,88,200,1) 100%);
+}
+
+.master-2{
+  background: linear-gradient(146deg, rgba(191,207,253,1) 60%, rgba(88,232,170,1) 100%);
 }
 
 .container{

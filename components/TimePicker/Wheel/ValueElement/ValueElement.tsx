@@ -18,7 +18,7 @@ const ValueElement = React.forwardRef<HTMLDivElement, ValueElementProps>(({value
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.7,
     root: setRef(ref),
-    rootMargin: '-55px 0px -55px 0px',
+    rootMargin: '-50px 0px -50px 0px',
     onChange: handleChange
   });
 

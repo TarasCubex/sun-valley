@@ -5,14 +5,14 @@ import styles from './Header.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 import type {INote} from '../../types'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {prettifyDateString} from '@/utilities/prettifyDateString'
 
 const Header = ({children}: {children: React.ReactNode}) => {
 
   const [value, setValue] = React.useState('')
-
   const [notes, setNotes] = React.useState<INote[]>([])
+  const [isEmpty, setIsEmpty] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   const find = React.useCallback(async () => {
     const res = await fetch('/api/findNotes',{
@@ -23,22 +23,30 @@ const Header = ({children}: {children: React.ReactNode}) => {
       body: JSON.stringify(value)
     })
     const response: {notes: INote[]} = await res.json()
+    if(response.notes.length === 0) setIsEmpty(true)
     return response.notes
   },[value])
 
+  const handleCloseSearch = () => {
+    setValue('')
+    setIsEmpty(false)
+  }
+
   React.useEffect(() => {
-    const findData = () => {
-      return toast.promise(find().then(data => setNotes(data)),
-      {
-        pending: 'Подождите',
-        success: 'Готово!',
-        error: 'Ошибка (',
+    const findData = async () => {
+      setLoading(true)
+      return find().then(data => {
+        setNotes(data)
+        setLoading(false)
       })
     }
     let timeout: ReturnType<typeof setTimeout> | null = null;
     if(!!value){
       timeout = setTimeout(findData, 1000);
-    } else setNotes([])
+    } else {
+      setNotes([])
+      setIsEmpty(false)
+    }
     return () => {
       if(timeout)clearTimeout(timeout)
     };
@@ -46,18 +54,6 @@ const Header = ({children}: {children: React.ReactNode}) => {
 
   return (
     <main>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={700}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
       <header className={styles.wrapper}>
         <Link href='/'>
           <Image src='/menu.png' alt='menu' width={40} height={40} />
@@ -68,19 +64,24 @@ const Header = ({children}: {children: React.ReactNode}) => {
             placeholder='Поиск заметок..'
             value={value}
             onChange={e => setValue(e.target.value)}
+            //onBlur={handleCloseSearch}
             />
-          {!!value &&  <Image src='/close.png' alt='' width={28} height={28} onClick={() => setValue('')} />}
+          {loading ?  <Image src='/loading.gif' alt='' width={24} height={24} /> :
+          !!value ?  <Image src='/close.png' alt='' width={28} height={28} onClick={handleCloseSearch} /> : null
+          }
         </div>
       </header>
       <div className={styles['note-container']}>
-        {!!notes.length && notes.map(note =>
+        {(!!notes.length && !isEmpty) ? notes.map(note =>
           <div key={note._id} className={styles.note}>
-            <span>{`${note.day}.${note.month}.${note.year}`}</span>
+            <span>{prettifyDateString(note.day, note.month, note.year)}</span>
             <span>Время: {note.time}</span>
             <span>Мастер: {note.master}</span>
             <p>{note.content}</p>
           </div>
-          )}
+          ) : isEmpty  ?
+          <h2 className={styles.notfound} >Заметок не найдено ...</h2> : null
+        }
       </div>
       {children}
     </main>

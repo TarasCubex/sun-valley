@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './NoteList.module.scss'
 import Image from 'next/image'
 import type {INote} from '../../types'
+import classnames from 'classnames'
 
 type NoteListProps = {
   notes: INote[];
@@ -32,11 +33,15 @@ const NoteList: React.FC<NoteListProps> = ({notes, date, updateData, editNote}) 
     updateData(response.notes)
   }
 
+  const getNoteClname = (master: string) => classnames(styles.note,{
+    [styles['master-1']]: master === 'Катя',
+    [styles['master-2']]: master === 'Лена'
+  })
 
   return (
     <div className={styles.wrapper}>
       {notes.map(note =>
-      <div key={note.content} className={styles.note}>
+      <div key={note.content} className={getNoteClname(note.master)}>
         <div className={styles.container}>
           <p>Время: {note.time}</p>
           <p>Мастер: {note.master}</p>

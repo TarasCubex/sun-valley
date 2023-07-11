@@ -23,10 +23,23 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
   const [master, setMaster] = React.useState(basicData.master)
   const [time, setTime] = React.useState(basicData.time)
   const [content, setContent] = React.useState(basicData.content)
+  const [error, setError] = React.useState('')
+
+  React.useEffect(() => {
+    if(!!content && !!master) setError('')
+  },[content, master])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    if(!master){
+      setError('Пожалуйста, укажите мастера')
+      return
+    }
+    if(!content){
+      setError('Пожалуйста, добавьте заметку')
+      return
+    }
     const data = {
       _id: basicData._id,
       year: basicData.year,
@@ -106,7 +119,8 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
           value={content}
           onChange={e => setContent(e.target.value)}
           />
-        <button type='submit' className={styles.btn}>Готово</button>
+          {/* {!!error && <p className={styles.error}>{error}</p>} */}
+        <button type='submit' className={styles.btn} disabled={!!error}>Готово</button>
     </form>
     </div>,
     portal

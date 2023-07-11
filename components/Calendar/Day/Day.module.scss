@@ -26,9 +26,13 @@
 }
 
 .today{
-  color: #5E81F4;
+  p{
+    text-shadow: #FC0 1px 0 10px;
+    font-size: 1.25em;
+    font-weight: 600;
+  }
 }
 
 .thismonth{
-  color:rgb(182, 182, 182);
+  color:rgb(168, 168, 168);
 }

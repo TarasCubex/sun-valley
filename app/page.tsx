@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
 
-  const {month, data, nextMonth, prevMonth} = useGeneratedData()
+  const {month,year, data, nextMonth, prevMonth} = useGeneratedData()
 
   return (
     <Header>
@@ -32,6 +32,7 @@ export default function Home() {
           next={nextMonth}
           prev={prevMonth}
           month={month}
+          year={year}
           />
       </div>
     </Header>

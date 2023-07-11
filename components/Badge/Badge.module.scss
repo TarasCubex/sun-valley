@@ -6,17 +6,18 @@
   display: flex;
   align-items: center;
   padding: 4px;
-  & > :first-child{
+  & > .master-1{
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: rgb(184, 20, 184);
-    transform: translateX(50%);
+    background-color: rgba(232,88,200,1);
+    //transform: translateX(50%);
   }
-  & > :last-child{
+  & > .master-2{
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: rgb(20, 184, 94);
+    background-color: rgba(88,232,170,1);
+    transform: translateX(-50%);
   }
 }

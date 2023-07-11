@@ -9,6 +9,7 @@ const useGeneratedData = () => {
   const firstDay = React.useRef(defaultDate)
 
   const [month, setMonth] = React.useState(firstDay.current.getMonth())
+  const [year, setYear] = React.useState(firstDay.current.getFullYear())
 
   const nextMonth = ()=>{
     const day = firstDay.current
@@ -18,6 +19,7 @@ const useGeneratedData = () => {
     day.setMonth(month)
     day.setFullYear(year)
     setMonth(day.getMonth())
+    setYear(day.getFullYear())
   }
 
   const prevMonth = ()=>{
@@ -28,6 +30,7 @@ const useGeneratedData = () => {
     day.setMonth(month)
     day.setFullYear(year)
     setMonth(day.getMonth())
+    setYear(day.getFullYear())
   }
 
   const [data, setData] = React.useState<IDayData[]>([])
@@ -38,10 +41,10 @@ const useGeneratedData = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(month+1)
+      body: JSON.stringify({month: month+1, year})
     })
     return await notes.json()
-  },[month])
+  },[month, year])
 
   React.useEffect(() => {
     toast.promise(FetchData().then((res: {notes: INote[]}) => {
@@ -57,7 +60,7 @@ const useGeneratedData = () => {
     })
   },[month, FetchData])
 
-  return {month,data, nextMonth, prevMonth}
+  return {month,year,data, nextMonth, prevMonth}
 }
 
 export default useGeneratedData

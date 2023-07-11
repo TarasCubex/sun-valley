@@ -16,9 +16,10 @@ type CalendarProps = {
   next: () => void,
   prev: () => void,
   month: number;
+  year: number
 }
 
-const Calendar: React.FC<CalendarProps> = ({data, next, prev, month}) => {
+const Calendar: React.FC<CalendarProps> = ({data, next, prev, month, year}) => {
 
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toDateString()
@@ -27,7 +28,7 @@ const Calendar: React.FC<CalendarProps> = ({data, next, prev, month}) => {
     <div className={styles.container}>
       <div className={styles['month-container']}>
         <Image src='/arrow.png' alt='' width={24} height={24} onClick={prev} />
-        <p>{monthArr[month] + ' ' + 2023}</p>
+        <p>{monthArr[month] + ' ' + year}</p>
         <Image src='/arrow.png' alt='' width={24} height={24} onClick={next} />
       </div>
       <div className={styles['days-container']}>

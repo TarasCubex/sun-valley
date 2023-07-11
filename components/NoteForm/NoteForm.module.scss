@@ -66,6 +66,9 @@
   background: linear-gradient(90deg, rgba(190,126,245,1) 0%, rgba(114,24,167,1) 25%, rgba(114,24,167,1) 75%, rgba(190,126,245,1) 100%);
   color: white;
   border-radius: 8px;
+  &:disabled{
+    background: linear-gradient(90deg, rgba(209,147,89,1) 0%, rgba(228,47,47,1) 25%, rgba(228,47,47,1) 75%, rgba(209,147,89,1) 100%);
+  }
 }
 
 .radio{
@@ -100,4 +103,10 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.error{
+  color: rgb(209, 19, 19);
+  font-size: 0.85em;
+  font-weight: 600;
 }

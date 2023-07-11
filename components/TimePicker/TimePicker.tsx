@@ -4,7 +4,7 @@ import React from 'react'
 import styles from './TimePicker.module.scss'
 import Wheel from './Wheel/Wheel'
 
-const hours =  ['','09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19' ,'20','']
+const hours =  ['','08','09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19' ,'20','']
 const minutes = ['','00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55','']
 
 type TimePickerProps = {
