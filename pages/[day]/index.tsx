@@ -1,6 +1,7 @@
-'use client'
+
 
 import React from 'react'
+import { GetServerSideProps } from 'next'
 import styles from '../../styles/DayPage.module.scss'
 import type {INote} from '../../types'
 import Header from '../../components/Header/Header'
@@ -8,7 +9,7 @@ import NoteContainer from '@/components/NoteContainer/NoteContainer'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const DayPage = ({params:{day}}: {params:{day: string}}) => {
+const DayPage = ({day}: {day: string}) => {
 
   const [notes, setNotes] = React.useState<INote[]>([])
 
@@ -69,6 +70,15 @@ const DayPage = ({params:{day}}: {params:{day: string}}) => {
 }
 
 export default DayPage
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const day = context.query.day!;
+    return {
+      props: {
+        day
+      },
+    };
+};
 
 
 
