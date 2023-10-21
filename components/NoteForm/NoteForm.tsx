@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import styles from './NoteForm.module.scss'
 import createPortalDiv from '@/utilities/createPortalDiv'
 import TimePicker from '../TimePicker/TimePicker';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, ToastContentProps } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import type {INote} from '../../types'
@@ -13,12 +13,13 @@ import type {INote} from '../../types'
 type NoteFormProps = {
   basicData: INote,
   handleClose: React.Dispatch<React.SetStateAction<boolean>>,
-  actionCb: (data:INote) => Promise<void>
+  actionCb: (data:INote) => Promise<void>;
+  remove: (data:INote) => Promise<void>;
 }
 
 const portal = createPortalDiv()
 
-const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) => {
+const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb, remove}) => {
 
   const [master, setMaster] = React.useState(basicData.master)
   const [time, setTime] = React.useState(basicData.time)
@@ -52,7 +53,22 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
     toast.promise( actionCb(data),{
       pending: 'Подождите',
       success: 'Готово!',
-      error: 'Ошибка (',
+      error:{
+        render(error: ToastContentProps<{message: string}>){
+          return `${error.data?.message}`
+        }
+      }}
+      )
+    toast.onChange((payload) => {
+      if(payload.status === 'removed') handleClose(false)
+    })
+  }
+
+  const removeNote = async () => {
+    toast.promise( remove(basicData),{
+      pending: 'Подождите',
+      success: 'Готово!',
+      error:'Ошибка('
       }
       )
     toast.onChange((payload) => {
@@ -82,6 +98,10 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
         theme="light"
       />
       <form className={styles.form} onSubmit={e => handleSubmit(e)} onClick={e => e.stopPropagation()}>
+        <div className={styles.btns}>
+          {basicData._id ? <button type='button' className={styles['btn-del']} onClick={removeNote} >Удалить</button> : <div></div>}
+          <button type='button' className={styles['btn-cls']} onClick={() => handleClose(false)}>X</button>
+        </div>
         <h3>{ !!basicData._id ?  'Редактировать запись' : 'Новая запись' }</h3>
         <div className={styles.container}>
           <div className={styles.master}>
@@ -111,7 +131,8 @@ const NoteForm: React.FC<NoteFormProps> = ({ basicData, handleClose, actionCb}) 
               <label htmlFor='master-2'>Лена</label>
             </div>
           </div>
-          <TimePicker timeValue={time} changeTime={setTime} />
+          <TimePicker timeValue={time.from} changeTime={(from) => setTime(time => ({from, to: time.to}))} />
+          <TimePicker timeValue={time.to} changeTime={(to) => setTime(time => ({from: time.from, to}))} />
         </div>
         <textarea
           className={styles.area}

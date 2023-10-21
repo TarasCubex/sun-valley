@@ -37,24 +37,56 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
       master: data.master,
       content: data.content
     }
-    const res = await fetch('/api/addNote',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newNoteData)
-    })
-    const response: {notes: INote[]} = await res.json()
-    setNoteList(response.notes)
+    try {
+      const res = await fetch('/api/addNote',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newNoteData)
+      })
+      if (res.ok){
+        const response: {notes: INote[]} = await res.json()
+        setNoteList(response.notes)
+      }
+      else {
+        const {err} = await res.json()
+        throw new Error(err.message)
+      }
+    } catch (error: any) {
+      throw new Error(error)
+    }
   }
 
   const updateNote = async ( data: INote) => {
-    const res = await fetch('/api/updateNote',{
+    try {
+      const res = await fetch('/api/updateNote',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      if (res.ok){
+        const response: {notes: INote[]} = await res.json()
+        setNoteList(response.notes)
+      }
+      else {
+        const {err} = await res.json()
+        throw new Error(err.message)
+      }
+    } catch (error: any) {
+      throw new Error(error)
+    }
+  }
+
+  const deleteNote = async (data: INote) => {
+    const res = await fetch('/api/deleteNote',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({id: data._id, date: {year: data.year, month: data.month, day: data.day}})
     })
     const response: {notes: INote[]} = await res.json()
     setNoteList(response.notes)
@@ -71,7 +103,7 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
             year: year,
             day: day,
             month: month,
-            time: '08:00',
+            time: {from: '08:00', to:'09:00'},
             master: '',
             content: ''
           })}
@@ -80,9 +112,14 @@ const NoteContainer: React.FC<NoteContainerProps> = ({year, month, day, notes}) 
         </button>
         <h3>{prettifyDateString(day, month, year)}</h3>
       </div>
+      <div className={styles.masters}>
+          <p>Катя</p>
+          <p>Лена</p>
+      </div>
       {!!formInitData && <DynamicNoteForm
         basicData={formInitData}
         actionCb={formInitData._id === '' ? addNote : updateNote}
+        remove={deleteNote}
         handleClose={() => setFormInitData(null)}
         />}
       <NoteList

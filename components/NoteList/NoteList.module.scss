@@ -2,29 +2,31 @@
 
 .wrapper{
   display: flex;
-  flex-direction: column;
-  align-items: baseline;
   gap: 1em;
   overflow-y: scroll;
   padding: 0.5em 0.25em;
 }
 
-.note{
+.master{
   box-sizing: border-box;
   width: 100%;
   display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
+  flex-direction: column;
   padding: 5px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.master-1{
-  background: linear-gradient(146deg, rgba(191,207,253,1) 60%, rgba(232,88,200,1) 100%);
+.master-1, .master-2 {
+  //width: 50%;
+  flex-grow: 1;
+  position: relative;
 }
 
-.master-2{
-  background: linear-gradient(146deg, rgba(191,207,253,1) 60%, rgba(88,232,170,1) 100%);
+.master-1 > .content > div{
+  background-color: rgba(224, 91, 184, 0.719);
+}
+
+.master-2 > .content > div{
+  background-color: rgba(64, 183, 192, 0.685);
 }
 
 .container{
@@ -35,6 +37,13 @@
   color: black;
 }
 
+.hours{
+  p{
+    height: 60px;
+    //margin-bottom: 5px;
+  }
+}
+
 .btn-container{
   display: flex;
   align-items: flex-start;
@@ -42,7 +51,28 @@
 }
 
 .content{
+  box-sizing: border-box;
   width: 100%;
   color: black;
-  padding-top: 5px;
+  position: absolute;
+  border-top: 2px solid rgba(0, 0, 0, 0);
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+  & > div {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    & > p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    & > p:first-of-type{
+      font-weight: 600;
+    }
+    & > p:last-of-type{
+      font-style: italic;
+    }
+  }
 }

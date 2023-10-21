@@ -3,7 +3,10 @@ export interface INote{
   year: string;
   day: string;
   month: string;
-  time: string
+  time: {
+    from: string;
+    to: string;
+  }
   master: string;
   content: string;
 }

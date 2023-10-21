@@ -26,19 +26,27 @@
     text-align: center;
     font-size: 1.4em;
     font-weight: 600;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
   }
 }
 
 .container{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
 }
 
 .master{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   h3{
     margin-bottom: 1em;
+    width: 100%;
+    text-align: center;
   }
   label{
     font-size: 1.15em;
@@ -58,16 +66,35 @@
   padding: 0.5em;
   border: 2px solid colors.$blue;
   border-radius: 8px;
-  min-height: 100px;
+  min-height: 150px;
+}
+
+.btns{
+  display: flex;
+  justify-content: space-between;
 }
 
 .btn{
-  padding: 0.5em 1em;
+  padding: 1em 2em;
   background: linear-gradient(90deg, rgba(190,126,245,1) 0%, rgba(114,24,167,1) 25%, rgba(114,24,167,1) 75%, rgba(190,126,245,1) 100%);
   color: white;
   border-radius: 8px;
   &:disabled{
     background: linear-gradient(90deg, rgba(209,147,89,1) 0%, rgba(228,47,47,1) 25%, rgba(228,47,47,1) 75%, rgba(209,147,89,1) 100%);
+  }
+  &-del{
+    padding: 1em 2em;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(241,125,58,1) 0%, rgba(238,55,31,1) 50%, rgba(241,125,58,1) 100%);
+    width: fit-content;
+  }
+  &-cls{
+    padding: 1em 2em;
+    color: white;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(190,126,245,1) 0%, rgba(114,24,167,1) 25%, rgba(114,24,167,1) 75%, rgba(190,126,245,1) 100%);
+    width: fit-content;
   }
 }
 
