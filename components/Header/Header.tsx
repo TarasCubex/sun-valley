@@ -75,7 +75,7 @@ const Header = ({children}: {children: React.ReactNode}) => {
         {(!!notes.length && !isEmpty) ? notes.map(note =>
           <div key={note._id} className={styles.note}>
             <span>{prettifyDateString(note.day, note.month, note.year)}</span>
-            <span>Время: {note.time}</span>
+            <span>Время: {`${note.time.from} - ${note.time.to}`}</span>
             <span>Мастер: {note.master}</span>
             <p>{note.content}</p>
           </div>
